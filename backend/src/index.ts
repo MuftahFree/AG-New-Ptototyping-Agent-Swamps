@@ -11,6 +11,7 @@ import { SEOAgent } from './agents/SEOAgent.js';
 import { LeadGenerationAgent } from './agents/LeadGenerationAgent.js';
 import { AIMLAgent } from './agents/AIMLAgent.js';
 import { MentorAgent } from './agents/MentorAgent.js';
+import { SkillCreatorAgent } from './agents/SkillCreatorAgent.js';
 import { AgentManagementSystem } from './orchestration/AgentManagementSystem.js';
 import { WorkflowManagementSystem } from './orchestration/WorkflowManagementSystem.js';
 import { ConnectorRegistry } from './orchestration/ConnectorRegistry.js';
@@ -43,6 +44,9 @@ async function main() {
   // Initialize Orchestrator
   const orchestrator = new Orchestrator();
   const registry = orchestrator.getRegistry();
+
+  // Wire model router into orchestrator for PIL
+  orchestrator.setModelRouter(modelRouter);
 
   // Initialize Agent Management System
   console.log('\n🎓 Initializing Agent Management System...');
@@ -102,6 +106,11 @@ async function main() {
   registry.registerAgent(mentorAgent);
   agentManagement.initializeLearningProfile(mentorAgent.id, 'continuous');
   console.log('  ✓ Mentor Lead Agent registered');
+
+  const skillCreatorAgent = new SkillCreatorAgent(modelRouter);
+  registry.registerAgent(skillCreatorAgent);
+  agentManagement.initializeLearningProfile(skillCreatorAgent.id, 'continuous');
+  console.log('  ✓ Skill Creator Agent registered');
 
   // Start API Server with management systems
   console.log('\n🌐 Starting API Server...');
