@@ -1,17 +1,17 @@
 import { Suspense, lazy } from 'react';
 import { Badge, Button, Card, CardHeader, ProgressBar, Text, Title1, Title2, Title3 } from '@fluentui/react-components';
 import { motion } from 'framer-motion';
-import { A2UIRenderer } from './components/a2ui/A2UIRenderer';
 import './App.css';
 import './styles/claymation.css';
 
 const ClaySwampScene = lazy(() => import('./components/three/ClaySwampScene').then(m => ({ default: m.ClaySwampScene })));
+const A2UIRenderer = lazy(() => import('./components/a2ui/A2UIRenderer').then(m => ({ default: m.A2UIRenderer })));
 
 const SWAMP_EXPANSION_READINESS = 0.86;
 
 const modelProviders = [
   'OpenAI', 'Gemini', 'Anthropic', 'Ollama', 'Azure OpenAI', 'Groq', 'Mistral', 'custom OpenAPI providers',
-];
+] as const;
 const providerList = `${modelProviders.slice(0, -1).join(', ')}, and ${modelProviders[modelProviders.length - 1]}`;
 
 const agentHighlights = [
@@ -19,28 +19,28 @@ const agentHighlights = [
   'Database Developer', 'Data Architect', 'Data Scientist', 'Data Engineer', 'Data Analyst',
   'Document Automation Agent', 'Image Generation Agent', 'Video Classification Agent',
   'Cellphone Assistant', 'Pitch Deck Agent', 'Hermes Integration Agent', 'OpenClaw Connector Agent',
-];
+] as const;
 
 const skillPillars = [
   { title: 'Multimodal creation', items: ['Image Generation', 'Text-to-speech (TTS)', 'Speech-to-text (STT)', 'Video Classification', 'Audio Summarization', 'Creative Review'] },
   { title: 'Documents & business assets', items: ['PDF', 'PPTX', 'DOCX', 'XLSX', 'pitch decks', 'reports', 'RFP responses'] },
   { title: 'Engineering delivery', items: ['mobile apps', 'database development', 'data architecture', 'QA automation', 'DevOps', 'security'] },
   { title: 'User control', items: ['Bring Your Own Key (BYOK) OpenAI', 'BYOK Gemini', 'Ollama/local models', 'model routing', 'budget caps', 'audit logs'] },
-];
+] as const;
 
 const recommendations = [
   'Add a guided agent marketplace so users can activate Voice, Mobile, Data, Document, and Hermes agents by use case.',
   'Expose settings for BYOK model providers, fallback order, token budgets, and per-agent model preferences.',
   'Design a mobile-first Swamp companion with voice commands, notifications, task approvals, and cellphone assistant flows.',
   'Support both Hermes and OpenClaw orchestration connectors so users can choose the agent runtime that fits their stack.',
-];
+] as const;
 
 const CONNECTIONS = [
   { from: 'dev', to: 'qa', active: true },
   { from: 'qa', to: 'pm', active: false },
   { from: 'pm', to: 'dev', active: false },
   { from: 'dev', to: 'skill', active: true },
-];
+] as const;
 
 function App() {
   return (
@@ -104,7 +104,9 @@ function App() {
       <section style={{ marginBottom: '2rem' }}>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.6 }}>
           <Title2 style={{ marginBottom: '0.75rem', display: 'block' }}>⚡ A2UI Live Dashboard</Title2>
-          <A2UIRenderer />
+          <Suspense fallback={<div className="clay-card" style={{ padding: '2rem', color: '#aaa' }}>Loading dashboard…</div>}>
+            <A2UIRenderer />
+          </Suspense>
         </motion.div>
       </section>
 
