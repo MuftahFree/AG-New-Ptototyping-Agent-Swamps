@@ -36,7 +36,7 @@ const agentHighlights = [
 const skillPillars = [
   {
     title: 'Multimodal creation',
-    items: ['Image generation', 'Text-to-speech (TTS)', 'Speech-to-text (STT)', 'video classification', 'audio summarization', 'creative review']
+    items: ['Image Generation', 'Text-to-speech (TTS)', 'Speech-to-text (STT)', 'Video Classification', 'Audio Summarization', 'Creative Review']
   },
   {
     title: 'Documents & business assets',
