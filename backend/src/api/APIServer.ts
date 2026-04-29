@@ -10,6 +10,8 @@ import { AgentManagementSystem } from '../orchestration/AgentManagementSystem.js
 import { WorkflowManagementSystem } from '../orchestration/WorkflowManagementSystem.js';
 import type { ConnectorRegistry } from '../orchestration/ConnectorRegistry.js';
 import { AgentType, TaskPriority, TaskType } from '../shared/types.js';
+import { createA2UIRouter } from './a2ui/A2UIRouter.js';
+import { A2ABus } from '../protocols/a2a/A2ABus.js';
 
 const taskRequestSchema = z.object({
   title: z.string().min(1),
@@ -182,11 +184,21 @@ export class APIServer {
       this.app.get('/api/connectors/:id', this.getConnector.bind(this));
     }
 
+    // A2A API endpoints
+    this.app.use('/api/a2a', createA2UIRouter());
+
     // System endpoints
     this.app.get('/api/system/stats', this.getSystemStats.bind(this));
   }
 
   private setupWebSocket(): void {
+    const a2aBus = A2ABus.getInstance();
+
+    // Forward A2A bus messages to connected WS clients
+    a2aBus.onMessage((envelope) => {
+      this.io.emit('a2a:message', envelope);
+    });
+
     this.io.on('connection', (socket) => {
       console.log('Client connected:', socket.id);
 

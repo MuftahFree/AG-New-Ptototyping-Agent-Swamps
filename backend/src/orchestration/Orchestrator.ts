@@ -6,6 +6,8 @@ import { AgentSelector } from './AgentSelector.js';
 import { TaskQueue } from './TaskQueue.js';
 import { EventEmitter } from 'events';
 import type { Task, TaskResult, TaskType, TaskPriority, TaskStatus } from '../shared/types.js';
+import type { ModelRouter } from '../models/ModelRouter.js';
+import { PromptImprovisationLayer } from './promptImprovisation/PromptImprovisationLayer.js';
 
 interface TaskRequest {
   title: string;
@@ -23,6 +25,7 @@ export class Orchestrator {
   private processing: boolean = false;
   private taskResults: Map<string, TaskResult> = new Map();
   private taskEvents: EventEmitter;
+  private pil?: PromptImprovisationLayer;
 
   constructor() {
     this.agentRegistry = new AgentRegistry();
@@ -41,6 +44,10 @@ export class Orchestrator {
 
   getQueue(): TaskQueue {
     return this.taskQueue;
+  }
+
+  setModelRouter(modelRouter: ModelRouter): void {
+    this.pil = new PromptImprovisationLayer(modelRouter, this.taskEvents);
   }
 
   async submitTask(taskRequest: TaskRequest): Promise<string> {
@@ -91,6 +98,9 @@ export class Orchestrator {
 
   private async processTask(task: Task): Promise<void> {
     try {
+      // Run prompt improvisation before agent selection
+      await this.pil?.improvise(task);
+
       // Select best agent
       const agent = this.agentSelector.selectAgent(task);
 
