@@ -8,6 +8,7 @@ import { z } from 'zod';
 import { Orchestrator } from '../orchestration/Orchestrator.js';
 import { AgentManagementSystem } from '../orchestration/AgentManagementSystem.js';
 import { WorkflowManagementSystem } from '../orchestration/WorkflowManagementSystem.js';
+import type { ConnectorRegistry } from '../orchestration/ConnectorRegistry.js';
 import { AgentType, TaskPriority, TaskType } from '../shared/types.js';
 
 const taskRequestSchema = z.object({
