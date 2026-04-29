@@ -32,9 +32,11 @@ const FORWARDED_EVENTS = [
 ] as const;
 
 let socket: Socket | null = null;
+let connecting = false;
 
 function attachListeners(sock: Socket): void {
   sock.on('connect', () => {
+    connecting = false;
     sock.emit('subscribe:tasks');
     sock.emit('subscribe:agents');
     self.postMessage({ type: '__connected' });
@@ -63,7 +65,8 @@ self.addEventListener('message', (ev: MessageEvent<WorkerCommand>) => {
   const { cmd, url, token } = ev.data;
 
   if (cmd === 'connect') {
-    if (socket?.connected) return;
+    if (connecting || socket?.connected) return;
+    connecting = true;
     const serverUrl = url ?? 'http://localhost:3000';
     socket = io(serverUrl, {
       transports: ['websocket', 'polling'],
@@ -76,5 +79,6 @@ self.addEventListener('message', (ev: MessageEvent<WorkerCommand>) => {
   } else if (cmd === 'disconnect') {
     socket?.disconnect();
     socket = null;
+    connecting = false;
   }
 });

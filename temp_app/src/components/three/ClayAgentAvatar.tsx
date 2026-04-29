@@ -18,13 +18,13 @@ const statusColors: Record<string, string> = {
   error: '#ff6b6b',
 };
 
-/** Accumulator for per-second frame budget sampling. */
-let frameBudgetAccum = 0;
-let frameBudgetTimer = 0;
-
 export function ClayAgentAvatar({ position = [0, 0, 0], color, status = 'idle' }: ClayAgentAvatarProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const resolvedColor = color || statusColors[status];
+
+  // Per-instance frame budget accumulators (not module-scope to avoid cross-instance pollution).
+  const frameBudgetAccum = useRef(0);
+  const frameBudgetTimer = useRef(0);
 
   useFrame((state, delta) => {
     if (!meshRef.current) return;
@@ -34,12 +34,12 @@ export function ClayAgentAvatar({ position = [0, 0, 0], color, status = 'idle' }
     meshRef.current.position.y = position[1] + Math.sin(t * 0.5) * 0.08;
 
     // Sample frame budget once per second.
-    frameBudgetAccum += delta * 1000;
-    frameBudgetTimer += delta;
-    if (frameBudgetTimer >= 1) {
-      reportFrameBudget('avatar', frameBudgetAccum / frameBudgetTimer);
-      frameBudgetAccum = 0;
-      frameBudgetTimer = 0;
+    frameBudgetAccum.current += delta * 1000;
+    frameBudgetTimer.current += delta;
+    if (frameBudgetTimer.current >= 1) {
+      reportFrameBudget('avatar', frameBudgetAccum.current / frameBudgetTimer.current);
+      frameBudgetAccum.current = 0;
+      frameBudgetTimer.current = 0;
     }
   });
 

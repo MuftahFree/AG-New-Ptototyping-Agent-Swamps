@@ -29,7 +29,7 @@ export const RECOMMENDED_CSP =
     // Scripts: self only; no 'unsafe-eval'.
     "script-src 'self'",
     // WebSocket + REST calls to the Agent Swamps backend.
-    "connect-src 'self' wss://your-backend.example.com https://your-backend.example.com",
+    "connect-src 'self' wss://REPLACE-WITH-YOUR-BACKEND-URL https://REPLACE-WITH-YOUR-BACKEND-URL",
     // Images: self + data URIs used by Three.js textures.
     "img-src 'self' data: blob:",
     // Fonts: self (add CDN origin if using Google Fonts or similar).

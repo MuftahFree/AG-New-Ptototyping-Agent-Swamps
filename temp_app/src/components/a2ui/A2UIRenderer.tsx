@@ -64,6 +64,10 @@ export function A2UIRenderer({ serverUrl }: A2UIRendererProps) {
   }, []);
 
   // --- Effect 1: connection lifecycle (mount/unmount only) ---
+  // NOTE: serverUrl is read only once at mount. Changes to the prop after
+  // mounting are intentionally ignored — reconnecting mid-session would drop
+  // all in-flight subscriptions. To force a reconnect, unmount and remount
+  // the component with a new serverUrl.
   useEffect(() => {
     A2UIService.connect(serverUrl);
     return () => {
