@@ -30,6 +30,13 @@ export interface ImprovisationResult {
   newSkillsCreated: string[];
 }
 
+/** Strip characters that could be used to escape/inject instructions into LLM prompts */
+function sanitizeForPrompt(input: string): string {
+  return input
+    .replace(/[<>{}|`]/g, '')  // remove common prompt-injection delimiters
+    .slice(0, 200);             // hard cap to limit injection surface
+}
+
 export class PromptImprovisationLayer {
   private events: EventEmitter;
   private skillRegistry: SkillRegistry;
@@ -48,12 +55,15 @@ export class PromptImprovisationLayer {
 
     // 2. Check for missing skills & create them
     const newSkillsCreated: string[] = [];
+    const additionalData = task.context?.additionalData ?? {};
+    const provider = (additionalData.llmProvider as string | undefined) ?? 'gemini';
+
     for (const skill of jobDescription.requiredSkills) {
       if (!this.skillRegistry.hasSkill(skill)) {
-        const provider = (task.context as any)?.llmProvider || 'gemini';
+        const safeTitle = sanitizeForPrompt(task.title);
         const created = await this.skillCreatorAgent.createSkillForProvider(
           skill,
-          `Required skill for task: ${task.title}`,
+          `Required skill for task: ${safeTitle}`,
           provider
         );
         newSkillsCreated.push(created.name);
@@ -74,10 +84,16 @@ export class PromptImprovisationLayer {
 
     this.events.emit('prompt:improvised', result);
 
-    // Inject into task context
-    if (!task.context) task.context = { additionalData: {} };
-    (task.context as any).jobDescription = jobDescription;
-    (task.context as any).systemInstruction = systemInstruction;
+    // Inject into task context — PIL data is stored inside additionalData
+    if (!task.context) {
+      task.context = { additionalData: {} };
+    }
+    task.context.additionalData = {
+      ...task.context.additionalData,
+      jobDescription,
+      systemInstruction,
+      llmProvider: provider,
+    };
 
     return result;
   }
@@ -103,12 +119,15 @@ export class PromptImprovisationLayer {
       ? task.requiredCapabilities
       : this.inferSkillsFromTask(task);
 
+    const safeTitle = sanitizeForPrompt(task.title);
+    const safeDesc = sanitizeForPrompt(task.description);
+
     return {
       role,
       seniority: 'Senior',
-      mission: `Deliver high-quality output for: ${task.title}`,
+      mission: `Deliver high-quality output for: ${safeTitle}`,
       responsibilities: [
-        `Analyse and execute: ${task.description.slice(0, 120)}`,
+        `Analyse and execute: ${safeDesc}`,
         'Ensure output meets defined quality criteria',
         'Communicate progress and blockers',
         'Document results in the agreed output format',
@@ -132,7 +151,7 @@ export class PromptImprovisationLayer {
       scope: [
         `Task type: ${task.type}`,
         `Priority: ${task.priority}`,
-        `Description: ${task.description}`,
+        `Description: ${sanitizeForPrompt(task.description)}`,
       ],
       goals: jd.kpis.map(k => `Achieve: ${k}`),
       outputContract: {
@@ -165,3 +184,4 @@ export class PromptImprovisationLayer {
     return skills.length ? skills : ['general-task-execution'];
   }
 }
+

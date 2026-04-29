@@ -1,11 +1,23 @@
 import { createHmac } from 'crypto';
 
-const SECRET = process.env.A2A_HMAC_SECRET || (() => {
+function resolveSecret(): string {
+  const envSecret = process.env.A2A_HMAC_SECRET;
+  if (envSecret) return envSecret;
   if (process.env.NODE_ENV === 'production') {
-    console.warn('[A2ABus] WARNING: A2A_HMAC_SECRET is not set. Using insecure default secret in production!');
+    throw new Error(
+      '[A2ABus] A2A_HMAC_SECRET environment variable is required in production. ' +
+      'Set it to a strong random secret (e.g. `openssl rand -hex 32`).'
+    );
   }
-  return 'agent-swamps-a2a-secret';
-})();
+  // Development/test only — log a clear warning so developers know to set the variable
+  console.warn(
+    '[A2ABus] WARNING: A2A_HMAC_SECRET is not set. ' +
+    'Using a default development secret. Set A2A_HMAC_SECRET in your .env file.'
+  );
+  return 'agent-swamps-a2a-dev-secret';
+}
+
+const SECRET = resolveSecret();
 
 export function signEnvelope(payload: Omit<import('./types.js').A2AEnvelope, 'signature'>): string {
   const data = JSON.stringify({
