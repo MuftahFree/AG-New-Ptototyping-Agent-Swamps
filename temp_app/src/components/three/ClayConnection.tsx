@@ -1,4 +1,4 @@
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -18,17 +18,24 @@ export function ClayConnection({ start, end, color = '#7c4dff', active = false }
     const m = s.clone().lerp(e, 0.5);
     m.y += 0.8;
     const curve = new THREE.QuadraticBezierCurve3(s, m, e);
-    return { points: curve.getPoints(40) };
+    return { points: curve.getPoints(24) };
   }, [start, end]);
 
   const geometry = useMemo(() => {
-    const tubeGeom = new THREE.TubeGeometry(
+    return new THREE.TubeGeometry(
       new THREE.CatmullRomCurve3(points),
-      40, 0.04, 6, false
+      24, 0.04, 5, false,
     );
-    return tubeGeom;
   }, [points]);
 
+  // Dispose geometry when it is replaced or on unmount to prevent GPU memory leaks.
+  useEffect(() => {
+    return () => {
+      geometry.dispose();
+    };
+  }, [geometry]);
+
+  // Only run the animation loop when the connection is active.
   useFrame((state) => {
     if (!meshRef.current || !active) return;
     const t = state.clock.getElapsedTime();
