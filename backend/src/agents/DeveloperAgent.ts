@@ -9,6 +9,7 @@ export class DeveloperAgent extends Agent {
   private frameworks: string[];
 
   constructor(modelRouter: ModelRouter, config?: {
+    name?: string;
     languages?: string[];
     frameworks?: string[];
   }) {
@@ -27,7 +28,7 @@ export class DeveloperAgent extends Agent {
       supportedTaskTypes: ['CODE_GENERATION' as any, 'CODE_REVIEW' as any]
     };
 
-    super('Developer Agent', 'DEVELOPER' as any, capabilities, modelRouter);
+    super(config?.name || 'Developer Agent', 'DEVELOPER' as any, capabilities, modelRouter);
     
     this.programmingLanguages = config?.languages || [
       'JavaScript',

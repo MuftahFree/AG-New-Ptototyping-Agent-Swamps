@@ -2,7 +2,10 @@
 
 ## 📋 Overview
 
-Agent Swamps is a **zero-touch agentic software house** - an autonomous multi-agent system that orchestrates specialized AI agents to automate complete software development workflows. The current implementation uses a **Fluent UI 2 React frontend** and a **Microsoft .NET agent/workflow backend** based on Semantic Kernel.
+Agent Swamps is a **zero-touch agentic software house** - an autonomous multi-agent system that orchestrates specialized AI agents to automate complete software development workflows. The current implementation uses a **Fluent UI 2 React frontend** (`temp_app`) with two available backend options:
+
+- **Node.js/TypeScript multi-agent backend** (`backend`) — the primary, feature-complete backend with agent orchestration, model routing, and management APIs.
+- **\.NET 8 Microsoft Semantic Kernel backend** (`backend-dotnet`) — a scaffold/reference backend for teams preferring the \.NET ecosystem.
 
 ## 🎯 Vision
 

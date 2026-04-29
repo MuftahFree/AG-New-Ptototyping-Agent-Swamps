@@ -5,7 +5,7 @@ import type { ModelRouter } from '../models/ModelRouter.js';
 import type { Task, TaskAnalysis, ValidationResult, AgentCapabilities } from '../shared/types.js';
 
 export class AIMLAgent extends Agent {
-  constructor(modelRouter: ModelRouter) {
+  constructor(modelRouter: ModelRouter, config?: { name?: string }) {
     const capabilities: AgentCapabilities = {
       skills: [
         'model-selection',
@@ -21,7 +21,7 @@ export class AIMLAgent extends Agent {
       supportedTaskTypes: ['RESEARCH' as any, 'GENERAL' as any]
     };
 
-    super('AI/ML Expert Agent', 'AI_ML' as any, capabilities, modelRouter);
+    super(config?.name || 'AI/ML Expert Agent', 'AI_ML' as any, capabilities, modelRouter);
   }
 
   protected async analyzeTask(task: Task): Promise<TaskAnalysis> {

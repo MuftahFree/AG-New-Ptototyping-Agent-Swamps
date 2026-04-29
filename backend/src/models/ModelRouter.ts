@@ -51,9 +51,9 @@ export class ModelRouter {
     try {
       stats.requestCount++;
       stats.lastUsed = new Date();
-      this.recordSuccess(provider.name);
       
       const result = await provider.generate(prompt, options);
+      this.recordSuccess(provider.name);
       return result;
     } catch (error) {
       stats.errorCount++;
@@ -118,6 +118,13 @@ export class ModelRouter {
       if (provider && this.isProviderAvailable(options.preferredProvider)) return provider;
     }
 
+    // Prefer the configured default provider when available
+    if (this.defaultProvider) {
+      const def = this.providers.get(this.defaultProvider);
+      if (def && this.isProviderAvailable(this.defaultProvider)) return def;
+    }
+
+    // Fall back to any other available provider
     const available = Array.from(this.providers.entries()).find(([name]) => 
       this.isProviderAvailable(name)
     );

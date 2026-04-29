@@ -9,6 +9,7 @@ export class SEOAgent extends Agent {
   private focusAreas: string[];
 
   constructor(modelRouter: ModelRouter, config?: {
+    name?: string;
     tools?: string[];
     focusAreas?: string[];
   }) {
@@ -30,7 +31,7 @@ export class SEOAgent extends Agent {
       supportedTaskTypes: ['SEO_OPTIMIZATION' as any, 'CONTENT_MARKETING' as any]
     };
 
-    super('SEO Agent', 'SEO' as any, capabilities, modelRouter);
+    super(config?.name || 'SEO Agent', 'SEO' as any, capabilities, modelRouter);
     
     this.seoTools = config?.tools || [
       'Google Search Console',

@@ -2,11 +2,11 @@
 
 This guide covers deployment options for the Agent Swamps multi-agent system.
 
-> Current baseline stack: **Fluent UI 2 React frontend (`temp_app`)** + **.NET 8 Microsoft Semantic Kernel backend (`backend-dotnet`)**.
+> Current baseline stack: **Fluent UI 2 React frontend (`temp_app`)** + **Node.js/TypeScript multi-agent backend (`backend`)**. A .NET 8 Microsoft Semantic Kernel backend scaffold is also available under `backend-dotnet` for reference.
 
 ## Prerequisites
 
-- Node.js 18+ installed
+- Node.js 20+ installed
 - API keys for AI providers (Google Gemini recommended)
 - (Optional) Docker and Docker Compose for containerized deployment
 
@@ -154,7 +154,7 @@ server {
 Create `backend/Dockerfile`:
 
 ```dockerfile
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 
@@ -277,7 +277,7 @@ git push heroku main
 1. Launch EC2 instance (Ubuntu 22.04)
 2. Install Node.js:
 ```bash
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
@@ -312,7 +312,7 @@ gcloud run deploy agent-swamps \
 ```bash
 az webapp up \
   --name agent-swamps \
-  --runtime "NODE|18-lts" \
+  --runtime "NODE|20-lts" \
   --sku B1
 ```
 
