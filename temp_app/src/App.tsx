@@ -12,6 +12,8 @@ const modelProviders = [
   'custom OpenAPI providers'
 ]
 
+const providerList = `${modelProviders.slice(0, -1).join(', ')}, and ${modelProviders[modelProviders.length - 1]}`
+
 const agentHighlights = [
   'Voice Agent',
   'Mobile Lead Developer',
@@ -101,7 +103,7 @@ function App() {
           <div className="settings-list">
             <div>
               <Text weight="semibold">Model keys</Text>
-              <Text>{modelProviders.join(', ')}.</Text>
+              <Text>{providerList}.</Text>
             </div>
             <div>
               <Text weight="semibold">Runtime connectors</Text>

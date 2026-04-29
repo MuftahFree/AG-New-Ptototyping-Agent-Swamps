@@ -86,10 +86,6 @@
 
 @media (max-width: 640px) {
   .app-shell {
-  --swamp-glow-primary-opacity: 0.16;
-  --swamp-glow-secondary-opacity: 0.18;
-  --swamp-glow-primary-stop: 36%;
-  --swamp-glow-secondary-stop: 34%;
     padding: 18px;
   }
 
