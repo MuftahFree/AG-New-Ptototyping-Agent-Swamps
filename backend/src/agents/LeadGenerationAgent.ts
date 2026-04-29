@@ -9,6 +9,7 @@ export class LeadGenerationAgent extends Agent {
   private tactics: string[];
 
   constructor(modelRouter: ModelRouter, config?: {
+    name?: string;
     channels?: string[];
     tactics?: string[];
   }) {
@@ -31,7 +32,7 @@ export class LeadGenerationAgent extends Agent {
       supportedTaskTypes: ['LEAD_GENERATION' as any, 'CONTENT_MARKETING' as any]
     };
 
-    super('Lead Generation Agent', 'LEAD_GENERATION' as any, capabilities, modelRouter);
+    super(config?.name || 'Lead Generation Agent', 'LEAD_GENERATION' as any, capabilities, modelRouter);
     
     this.channels = config?.channels || [
       'Email',

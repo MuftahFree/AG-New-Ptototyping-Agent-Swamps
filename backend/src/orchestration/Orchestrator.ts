@@ -156,8 +156,10 @@ export class Orchestrator {
     if (!task) return false;
     
     if (task.status === 'PENDING' as TaskStatus || task.status === 'ASSIGNED' as TaskStatus) {
+      // updateTaskStatus sets completedAt and moves task to completedTasks for proper stats tracking
+      this.taskQueue.updateTaskStatus(taskId, 'CANCELLED' as TaskStatus);
+      // removeTask clears the task from any pending queue arrays (no-op for active tasks already removed above)
       this.taskQueue.removeTask(taskId);
-      task.status = 'CANCELLED' as TaskStatus;
       return true;
     }
 

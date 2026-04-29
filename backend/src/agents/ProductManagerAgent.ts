@@ -5,7 +5,7 @@ import type { ModelRouter } from '../models/ModelRouter.js';
 import type { Task, TaskAnalysis, ValidationResult, AgentCapabilities } from '../shared/types.js';
 
 export class ProductManagerAgent extends Agent {
-  constructor(modelRouter: ModelRouter) {
+  constructor(modelRouter: ModelRouter, config?: { name?: string }) {
     const capabilities: AgentCapabilities = {
       skills: [
         'requirements-analysis',
@@ -19,7 +19,7 @@ export class ProductManagerAgent extends Agent {
       supportedTaskTypes: ['REQUIREMENTS_ANALYSIS' as any, 'GENERAL' as any]
     };
 
-    super('Product Manager Agent', 'PRODUCT_MANAGER' as any, capabilities, modelRouter);
+    super(config?.name || 'Product Manager Agent', 'PRODUCT_MANAGER' as any, capabilities, modelRouter);
   }
 
   protected async analyzeTask(task: Task): Promise<TaskAnalysis> {

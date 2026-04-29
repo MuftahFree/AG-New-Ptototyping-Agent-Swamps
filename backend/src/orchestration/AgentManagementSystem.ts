@@ -111,12 +111,22 @@ export class AgentManagementSystem {
       throw new Error(`No template found for agent type: ${request.type}`);
     }
 
+    // Merge template capabilities with any custom capabilities from the request
+    const mergedCapabilities = [
+      ...new Set([...template.defaultCapabilities, ...(request.customCapabilities || [])])
+    ];
+
+    const mergedSpecializations = [
+      ...new Set([...template.defaultSpecializations, ...(request.customSpecializations || [])])
+    ];
+
     // Create agent based on type
     let agent: Agent;
     
     switch (request.type) {
       case 'DEVELOPER' as AgentType:
         agent = new DeveloperAgent(this.modelRouter, {
+          name: request.name,
           languages: request.customCapabilities?.filter(c => c.includes('language')) || [],
           frameworks: request.customCapabilities?.filter(c => c.includes('framework')) || []
         });
@@ -124,16 +134,18 @@ export class AgentManagementSystem {
       
       case 'QA' as AgentType:
         agent = new QAAgent(this.modelRouter, {
+          name: request.name,
           frameworks: request.customCapabilities || []
         });
         break;
       
       case 'PRODUCT_MANAGER' as AgentType:
-        agent = new ProductManagerAgent(this.modelRouter);
+        agent = new ProductManagerAgent(this.modelRouter, { name: request.name });
         break;
       
       case 'SEO' as AgentType:
         agent = new SEOAgent(this.modelRouter, {
+          name: request.name,
           tools: request.customCapabilities,
           focusAreas: request.customSpecializations
         });
@@ -141,22 +153,31 @@ export class AgentManagementSystem {
       
       case 'LEAD_GENERATION' as AgentType:
         agent = new LeadGenerationAgent(this.modelRouter, {
+          name: request.name,
           channels: request.customCapabilities,
           tactics: request.customSpecializations
         });
         break;
 
       case 'AI_ML' as AgentType:
-        agent = new AIMLAgent(this.modelRouter);
+        agent = new AIMLAgent(this.modelRouter, { name: request.name });
         break;
 
       case 'MENTOR' as AgentType:
-        agent = new MentorAgent(this.modelRouter);
+        agent = new MentorAgent(this.modelRouter, { name: request.name });
         break;
       
       default:
         throw new Error(`Agent type ${request.type} not yet implemented`);
     }
+
+    // Apply merged capabilities and specializations from template
+    agent.capabilities.skills = [
+      ...new Set([...mergedCapabilities, ...agent.capabilities.skills])
+    ];
+    agent.capabilities.specializations = [
+      ...new Set([...mergedSpecializations, ...agent.capabilities.specializations])
+    ];
 
     // Initialize learning profile
     this.initializeLearningProfile(agent.id, request.trainingStrategy || 'continuous');
@@ -198,6 +219,10 @@ export class AgentManagementSystem {
     
     if (!profile) {
       throw new Error(`No learning profile found for agent ${agentId}`);
+    }
+
+    if (trainingData.length === 0) {
+      return;
     }
 
     // Add training data to history

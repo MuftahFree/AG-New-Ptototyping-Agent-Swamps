@@ -8,6 +8,7 @@ export class QAAgent extends Agent {
   private testingFrameworks: string[];
 
   constructor(modelRouter: ModelRouter, config?: {
+    name?: string;
     frameworks?: string[];
   }) {
     const capabilities: AgentCapabilities = {
@@ -24,7 +25,7 @@ export class QAAgent extends Agent {
       supportedTaskTypes: ['TESTING' as any]
     };
 
-    super('QA Agent', 'QA' as any, capabilities, modelRouter);
+    super(config?.name || 'QA Agent', 'QA' as any, capabilities, modelRouter);
     
     this.testingFrameworks = config?.frameworks || [
       'Jest',

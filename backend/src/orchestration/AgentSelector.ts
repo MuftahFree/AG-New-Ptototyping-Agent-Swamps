@@ -55,17 +55,21 @@ export class AgentSelector {
   }
 
   selectAgents(task: Task, count: number): Agent[] {
-    const selected: Agent[] = [];
     const availableAgents = this.registry.getAvailableAgents();
+    const candidateAgents = availableAgents.filter(
+      agent => this.hasRequiredCapabilities(agent, task)
+    );
+    const agentsToScore = candidateAgents.length > 0 ? candidateAgents : availableAgents;
 
-    for (let i = 0; i < count && i < availableAgents.length; i++) {
-      const agent = this.selectAgent(task);
-      if (agent && !selected.includes(agent)) {
-        selected.push(agent);
-      }
-    }
+    // Score candidates once, then return the top `count` unique agents
+    const scoredAgents = agentsToScore.map(agent => ({
+      agent,
+      score: this.calculateScore(agent, task)
+    }));
 
-    return selected;
+    scoredAgents.sort((a, b) => b.score - a.score);
+
+    return scoredAgents.slice(0, count).map(sa => sa.agent);
   }
 
   private calculateScore(agent: Agent, task: Task): number {
@@ -168,7 +172,7 @@ export class AgentSelector {
       return true;
     }
 
-    return task.requiredCapabilities.some(
+    return task.requiredCapabilities.every(
       cap => agent.capabilities.skills.includes(cap)
     );
   }

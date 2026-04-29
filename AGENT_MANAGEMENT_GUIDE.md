@@ -501,6 +501,39 @@ Create complex workflows with dependencies:
 
 Step D only executes after B and C complete, and B and C can run in parallel.
 
+
+
+## 🌌 Expanded Agent and Skill Roadmap
+
+The next Agent Swamps expansion should add a broad marketplace of agent templates and skills.
+
+### Priority Agent Templates
+
+- Voice Agent: TTS, STT, meeting notes, call summaries, voice commands.
+- Mobile Lead Developer Agent: iOS, Android, React Native, Flutter, mobile release readiness.
+- Agent Architecture Agent: agent contracts, orchestration topology, memory design, model routing.
+- Agent Skill Builder: skill curricula, skill tests, prompt packs, reinforcement datasets.
+- Document Creation Agent: PDF, PPTX, DOCX, XLSX, proposals, RFPs, SOPs, reports.
+- Pitch Deck Agent: investor decks, sales decks, competitive slides, financial summaries.
+- Image Generation Agent: image prompts, visual variants, brand checks, creative QA.
+- Video Classification Agent: scene labels, transcript alignment, highlights, safety classification.
+- Cellphone Assistant Agent: mobile approvals, voice commands, reminders, notifications.
+- Database Developer Agent: schemas, migrations, indexes, queries, backup plans.
+- Data Architecture Agent: data contracts, lineage, lakehouse/warehouse planning, governance.
+- Data Scientist/Engineer/Analyst Agents: experiments, pipelines, dashboards, metrics, reports.
+- Hermes Integration Agent and OpenClaw Connector Agent: runtime-neutral orchestration support.
+
+### Skill Packs
+
+- **Multimodal**: TTS, STT, image generation, video classification, OCR, audio/video summarization.
+- **Documents**: PDF, PPTX, DOCX, XLSX, pitch decks, reports, proposals, spreadsheets.
+- **Data**: database development, data architecture, data engineering, data science, analytics engineering.
+- **Mobile**: cellphone assistant, voice workflows, mobile app development, push approvals.
+- **Runtime**: Hermes, OpenClaw, MCP, OpenAPI, BPMN, webhooks, queues.
+- **Model Control**: BYOK keys, provider routing, fallback order, budgets, audit logs.
+
+See [Agent Expansion Roadmap](./AGENT_EXPANSION_ROADMAP.md) for the full catalog and phased plan.
+
 ## 📝 Summary
 
 The Agent Management System transforms Agent Swamps into a complete platform for:

@@ -5,7 +5,7 @@ import type { ModelRouter } from '../models/ModelRouter.js';
 import type { Task, TaskAnalysis, ValidationResult, AgentCapabilities } from '../shared/types.js';
 
 export class MentorAgent extends Agent {
-  constructor(modelRouter: ModelRouter) {
+  constructor(modelRouter: ModelRouter, config?: { name?: string }) {
     const capabilities: AgentCapabilities = {
       skills: [
         'mentorship',
@@ -20,7 +20,7 @@ export class MentorAgent extends Agent {
       supportedTaskTypes: ['GENERAL' as any, 'RESEARCH' as any]
     };
 
-    super('Mentor Lead Agent', 'MENTOR' as any, capabilities, modelRouter);
+    super(config?.name || 'Mentor Lead Agent', 'MENTOR' as any, capabilities, modelRouter);
   }
 
   protected async analyzeTask(task: Task): Promise<TaskAnalysis> {

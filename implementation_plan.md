@@ -57,3 +57,43 @@ Build a premium, cross-platform capable Web GUI for the "Agent Swamps" system—
 
 - **Theme**: Premium Dark Mode, Glassmorphism.
 - **Vibe**: "Alive", localized animations, "Wow" factor.
+
+
+## Expanded Agent Universe Plan
+
+### Agent Families to Add
+
+- **Engineering**: Mobile Lead Developer, Database Developer, Cloud Architect, API Integration, QA Automation, Release Manager, DevOps/SRE, Security.
+- **Agent Platform**: Agent Architecture, Agent Skill Builder, Prompt Engineer, MCP Tooling, Hermes Integration, OpenClaw Connector, Memory Steward, Knowledge Graph.
+- **Data**: Data Architecture, Data Scientist, Data Engineer, Data Analyst, Analytics Engineer, MLOps, BI Developer.
+- **Multimodal Media**: Voice Agent, Image Generation, Video Classification, Audio Summarization, OCR, Localization, Accessibility.
+- **Document Automation**: PDF, PPTX, DOCX, XLSX, Pitch Deck, Proposal/RFP, SOP/Policy, Financial Model.
+- **Business Growth**: SEO, Lead Generation, Marketing, Sales, Customer Support, Customer Success, Financial Analyst, Legal Ops, Compliance.
+- **Mobile Companion**: Cellphone Assistant, push approvals, STT/TTS command entry, mobile dashboards, offline notes.
+
+### Skill Matrix to Document and Implement
+
+- TTS, STT, voice commands, meeting notes, call summaries.
+- Image generation, image QA, brand review, visual variants.
+- Video classification, highlight extraction, transcript alignment.
+- PDF/PPTX/DOCX/XLSX generation, pitch decks, reports, proposals, RFPs, spreadsheets, KPI trackers.
+- Database schema design, migrations, SQL optimization, data contracts, data pipelines, dashboards, data science experiments.
+- BYOK model settings for OpenAI, Azure OpenAI, Gemini, Anthropic, Ollama, Mistral, Groq, OpenRouter-compatible APIs, and custom model gateways.
+- Hermes and OpenClaw runtime connectors with runtime-neutral workflow exports.
+
+### Landing Page Amendments
+
+- Add an agent marketplace preview grouped by domain.
+- Add BYOK settings cards for provider keys, fallback routing, token budgets, and audit logs.
+- Add mobile companion and cellphone assistant section.
+- Add multimodal showcase for documents, pitch decks, images, voice, and video.
+- Add Hermes + OpenClaw runtime badges and connector roadmap.
+
+### Implementation Phases
+
+1. **Catalog Foundation**: Agent taxonomy, capability matrix, UI marketplace preview, and docs.
+2. **Settings Foundation**: BYOK provider settings, model routing, cost caps, and audit controls.
+3. **Runtime Connectors**: Hermes adapter, OpenClaw connector, MCP tool registry, workflow import/export.
+4. **Multimodal Skills**: TTS/STT, image generation, video classification, document generation.
+5. **Data and Mobile**: Data agent family, mobile companion, cellphone assistant, push approvals.
+6. **Enterprise Controls**: security, compliance, permissions, governance, encrypted keys, retention policies.
