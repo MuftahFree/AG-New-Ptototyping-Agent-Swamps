@@ -56,9 +56,13 @@ export class AgentSelector {
 
   selectAgents(task: Task, count: number): Agent[] {
     const availableAgents = this.registry.getAvailableAgents();
+    const candidateAgents = availableAgents.filter(
+      agent => this.hasRequiredCapabilities(agent, task)
+    );
+    const agentsToScore = candidateAgents.length > 0 ? candidateAgents : availableAgents;
 
-    // Score all available agents once, then return the top `count` unique agents
-    const scoredAgents = availableAgents.map(agent => ({
+    // Score candidates once, then return the top `count` unique agents
+    const scoredAgents = agentsToScore.map(agent => ({
       agent,
       score: this.calculateScore(agent, task)
     }));
