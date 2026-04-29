@@ -1,6 +1,17 @@
 import { Badge, Button, Card, CardHeader, ProgressBar, Text, Title1, Title2, Title3 } from '@fluentui/react-components'
 import './App.css'
 
+const modelProviders = [
+  'OpenAI',
+  'Gemini',
+  'Anthropic',
+  'Ollama',
+  'Azure OpenAI',
+  'Groq',
+  'Mistral',
+  'custom OpenAPI providers'
+]
+
 const agentHighlights = [
   'Voice Agent',
   'Mobile Lead Developer',
@@ -23,7 +34,7 @@ const agentHighlights = [
 const skillPillars = [
   {
     title: 'Multimodal creation',
-    items: ['Image generation', 'TTS', 'STT', 'video classification', 'audio summarization', 'creative review']
+    items: ['Image generation', 'Text-to-speech (TTS)', 'Speech-to-text (STT)', 'video classification', 'audio summarization', 'creative review']
   },
   {
     title: 'Documents & business assets',
@@ -35,7 +46,7 @@ const skillPillars = [
   },
   {
     title: 'User control',
-    items: ['BYOK OpenAI', 'BYOK Gemini', 'Ollama/local models', 'model routing', 'budget caps', 'audit logs']
+    items: ['Bring Your Own Key (BYOK) OpenAI', 'BYOK Gemini', 'Ollama/local models', 'model routing', 'budget caps', 'audit logs']
   }
 ]
 
@@ -56,7 +67,7 @@ function App() {
             description={
               <Text>
                 Premium Fluent UI command center for a massive, multimodal AI software house: voice, mobile,
-                documents, data, media, BYOK model settings, Hermes, and OpenClaw.
+                documents, data, media, Bring Your Own Key (BYOK) model settings, Hermes, and OpenClaw.
               </Text>
             }
           />
@@ -90,7 +101,7 @@ function App() {
           <div className="settings-list">
             <div>
               <Text weight="semibold">Model keys</Text>
-              <Text>OpenAI, Gemini, Anthropic, Ollama, Azure OpenAI, Groq, Mistral, and custom OpenAPI providers.</Text>
+              <Text>{modelProviders.join(', ')}.</Text>
             </div>
             <div>
               <Text weight="semibold">Runtime connectors</Text>
@@ -98,7 +109,7 @@ function App() {
             </div>
             <div>
               <Text weight="semibold">Mobile companion</Text>
-              <Text>Voice commands, STT/TTS, task approvals, push notifications, and cellphone assistant workflows.</Text>
+              <Text>Voice commands, speech-to-text/text-to-speech workflows, task approvals, push notifications, and cellphone assistant workflows.</Text>
             </div>
           </div>
         </Card>

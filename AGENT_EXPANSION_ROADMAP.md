@@ -10,7 +10,7 @@ Agent Swamps should become an extensible agent operating system where users can 
 
 | Agent | Primary value | Example skills |
 | --- | --- | --- |
-| Voice Agent | Voice-first interaction and media workflows | TTS, STT, voice cloning policy checks, call summarization, meeting notes, multilingual voice UX |
+| Voice Agent | Voice-first interaction and media workflows | Text-to-speech (TTS), speech-to-text (STT), voice cloning policy checks, call summarization, meeting notes, multilingual voice UX |
 | Mobile Lead Developer Agent | Owns iOS, Android, React Native, Flutter, and mobile release quality | mobile architecture, offline sync, app store readiness, push notifications, device permissions |
 | Agent Architecture Agent | Designs swarm topologies, agent contracts, and orchestration boundaries | agent protocols, memory design, model routing, tool permissions, observability, failure recovery |
 | Agent Skill Builder | Creates and evaluates new agent skills | curriculum design, prompt packs, skill tests, feedback loops, reinforcement learning datasets |
