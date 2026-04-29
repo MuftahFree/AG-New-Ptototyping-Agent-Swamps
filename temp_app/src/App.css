@@ -1,24 +1,91 @@
 .app-shell {
   min-height: 100vh;
   display: grid;
-  place-items: center;
-  padding: 24px;
+  gap: 28px;
+  padding: 32px;
+  background:
+    radial-gradient(circle at top left, rgba(40, 220, 180, 0.16), transparent 36%),
+    radial-gradient(circle at bottom right, rgba(88, 86, 214, 0.18), transparent 34%);
 }
 
-.panel {
-  width: min(720px, 95vw);
+.hero-grid,
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.panel,
+.pillar-card,
+.recommendation-card {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
+}
+
+.hero-panel {
+  display: grid;
+  gap: 18px;
+}
+
+.settings-panel,
+.catalog-section,
+.recommendations-panel {
   display: grid;
   gap: 16px;
 }
 
 .status-row,
-.actions-row {
+.actions-row,
+.agent-grid,
+.chip-row {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.workflow-row {
+.workflow-row,
+.settings-list,
+.recommendation-list {
   display: grid;
-  gap: 8px;
+  gap: 12px;
+}
+
+.settings-list > div {
+  display: grid;
+  gap: 4px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.agent-grid {
+  padding-top: 8px;
+}
+
+.pillar-card {
+  display: grid;
+  gap: 10px;
+}
+
+.skill-chip {
+  border-radius: 999px;
+  padding: 8px 12px;
+  color: #dffdf7;
+  background: rgba(0, 255, 200, 0.1);
+  border: 1px solid rgba(0, 255, 200, 0.22);
+}
+
+.recommendation-card {
+  background: linear-gradient(135deg, rgba(0, 255, 200, 0.08), rgba(120, 84, 255, 0.08));
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    padding: 18px;
+  }
+
+  .actions-row > button {
+    width: 100%;
+  }
 }

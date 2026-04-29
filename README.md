@@ -15,6 +15,7 @@ Create a "living" software development environment where AI agents work together
 - **DevOps Agents** handle deployment and infrastructure
 - **Product Manager Agents** analyze requirements and prioritize features
 - **Architect Agents** design scalable system architectures
+- **Voice, Mobile, Data, Document, and Media Agents** handle TTS/STT, mobile apps, PDFs/PPTX/DOCX/XLSX, image generation, video classification, databases, analytics, and pitch decks
 
 ## 📚 Documentation Structure
 
@@ -92,6 +93,14 @@ Guide to navigating all documentation.
 - Search guide
 - Diagram index
 
+
+### 9. [Agent Expansion Roadmap](./AGENT_EXPANSION_ROADMAP.md)
+Comprehensive roadmap for missing agents, skills, BYOK model settings, mobile companion, Hermes, and OpenClaw.
+- **New Agents**: Voice, Mobile Lead Developer, Agent Architecture, Skill Builder, Image Generation, Document Creation, Data, Security, Sales, Support, and more
+- **New Skills**: TTS, STT, video classification, PDF/PPTX/DOCX/XLSX generation, pitch decks, database delivery, data science, and analytics
+- **User Settings**: BYOK providers, model routing, budget controls, runtime connectors, audit logs
+- **Mobile Roadmap**: Cellphone assistant, voice commands, approvals, notifications, and mobile Swamp companion
+
 ## 🏗️ System Architecture (High-Level)
 
 ```
@@ -156,7 +165,7 @@ Guide to navigating all documentation.
 
 ### Prerequisites
 - Node.js 20+ (frontend)
-- .NET SDK 8.0+ (agent backend)
+- .NET SDK 8.0+ (optional reference backend)
 
 ### Installation
 
@@ -221,6 +230,11 @@ REDIS_URL=redis://localhost:6379
 - [ ] Local LLM integration with Ollama
 
 ### 🔮 Future
+- Expanded agent marketplace: Voice, Mobile Lead Developer, Agent Architecture, Agent Skill Builder, Document Creation, Image Generation, Video Classification, Database Developer, Data Architecture, Data Scientist/Engineer/Analyst, Security, Compliance, Sales, Support, and more
+- BYOK settings for OpenAI, Gemini, Anthropic, Ollama/local models, Mistral, Groq, Azure OpenAI, OpenRouter-compatible APIs, and custom model gateways
+- Hermes and OpenClaw runtime connectors
+- Mobile Swamp companion with cellphone assistant, voice commands, STT/TTS, push approvals, and mobile-first dashboards
+- Multimodal workflows for PDF/PPTX/DOCX/XLSX documents, pitch decks, images, audio, and video
 - Multi-project support
 - Agent learning and improvement
 - Custom agent training
@@ -328,11 +342,18 @@ REDIS_URL=redis://localhost:6379
 │   ├── Message Patterns
 │   └── Error Handling
 │
-└── NAVIGATION.md
-    ├── Navigation Guide
-    ├── Quick Reference
-    ├── Use Case Scenarios
-    └── Documentation Matrix
+├── NAVIGATION.md
+│   ├── Navigation Guide
+│   ├── Quick Reference
+│   ├── Use Case Scenarios
+│   └── Documentation Matrix
+│
+└── AGENT_EXPANSION_ROADMAP.md
+    ├── Expanded Agent Catalog
+    ├── Skill Domains
+    ├── BYOK Model Settings
+    ├── Mobile Swamp Roadmap
+    └── Hermes + OpenClaw Runtime Strategy
 ```
 
 ## 🤝 Contributing
