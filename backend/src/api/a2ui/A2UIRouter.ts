@@ -12,10 +12,6 @@ export function createA2UIRouter(): Router {
 
   router.get('/conversations/:id', (req: Request, res: Response) => {
     const messages = bus.getConversation(req.params.id);
-    if (!messages.length) {
-      res.status(404).json({ error: 'Conversation not found' });
-      return;
-    }
     res.json({ conversationId: req.params.id, messages });
   });
 

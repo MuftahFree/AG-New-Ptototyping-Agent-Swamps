@@ -4,7 +4,7 @@ import { A2ABus } from '../../../src/protocols/a2a/A2ABus.js';
 describe('A2ABus', () => {
   const bus = A2ABus.getInstance();
 
-  it('sends and receives messages', () => {
+  it('sends and receives messages', { timeout: 5000 }, () => {
     return new Promise<void>((resolve) => {
       bus.onMessage((envelope) => {
         if (envelope.conversationId === 'test-conv-1') {
