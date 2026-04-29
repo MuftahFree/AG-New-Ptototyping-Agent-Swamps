@@ -5,7 +5,7 @@ interface SankeyNode { id: string; label: string; }
 interface SankeyLink { source: string; target: string; value: number; }
 interface SankeyProps { nodes: SankeyNode[]; links: SankeyLink[]; title?: string; }
 
-export function Sankey({ nodes, links, title }: SankeyProps) {
+export function Sankey({ nodes: _nodes, links, title }: SankeyProps) {
   const maxValue = Math.max(...links.map(l => l.value), 1);
   return (
     <motion.div className="clay-card" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -32,7 +32,6 @@ export function Sankey({ nodes, links, title }: SankeyProps) {
         {!links.length && (
           <p style={{ color: '#666', fontSize: '0.8rem', textAlign: 'center' }}>No flow data</p>
         )}
-        <div style={{ display: 'none' }}>{nodes.map(n => n.id).join(',')}</div>
       </div>
     </motion.div>
   );

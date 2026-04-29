@@ -1,10 +1,9 @@
 import { useEffect, useState, useCallback } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { A2UIService, type A2AMessageEvent, type ImprovisationEvent } from '../../services/A2UIService';
 import { MetricCard } from './MetricCard';
 import { RealtimeLineChart } from './RealtimeLineChart';
 import { RadialGauge } from './RadialGauge';
-import { AgentCard } from './AgentCard';
 import { JobDescriptionPanel } from './JobDescriptionPanel';
 import { A2AConversationTimeline } from './A2AConversationTimeline';
 import '../../styles/claymation.css';
@@ -22,12 +21,6 @@ export function A2UIRenderer({ serverUrl }: A2UIRendererProps) {
     { label: 'Skills Created', value: 0 },
   ]);
   const [lineData, setLineData] = useState<Array<{ time: string; value: number }>>([]);
-  const [agentCards, _setAgentCards] = useState<Array<{
-    name: string; type: string; status: 'idle' | 'thinking' | 'executing' | 'completed' | 'error';
-    skills: Array<{ name: string; provider?: string }>;
-    jobDescription?: { role: string; mission: string };
-    systemInstruction?: { purpose: string };
-  }>>([]);
   const [latestJD, setLatestJD] = useState<{ taskId: string; jd: unknown } | null>(null);
 
   const addTimePoint = useCallback(() => {
@@ -110,13 +103,6 @@ export function A2UIRenderer({ serverUrl }: A2UIRendererProps) {
 
       {/* Bottom row */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
-        {/* Agent cards */}
-        <AnimatePresence>
-          {agentCards.map(a => (
-            <AgentCard key={a.name} {...a} />
-          ))}
-        </AnimatePresence>
-
         {/* JD panel */}
         {latestJD && (
           <JobDescriptionPanel taskId={latestJD.taskId} jobDescription={latestJD.jd as Parameters<typeof JobDescriptionPanel>[0]['jobDescription']} />
