@@ -1,0 +1,181 @@
+/* Claymation Design System — Agent Swamps */
+
+:root {
+  --clay-base: #3a3d5c;
+  --clay-surface: #2d2f4a;
+  --clay-shadow: #1a1b30;
+  --clay-highlight: #6e72b8;
+  --clay-glow-primary: #7c4dff;
+  --clay-glow-secondary: #00e5ff;
+  --clay-glow-accent: #ff6b6b;
+  --clay-border-radius: 20px;
+  --clay-border-radius-lg: 32px;
+  --clay-blur: 16px;
+}
+
+/* Clay Surface — soft doughy card background */
+.clay-surface {
+  background: linear-gradient(135deg, var(--clay-surface) 0%, var(--clay-base) 100%);
+  border-radius: var(--clay-border-radius);
+  box-shadow:
+    6px 6px 18px rgba(0, 0, 0, 0.5),
+    -3px -3px 10px rgba(110, 114, 184, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(124, 77, 255, 0.18);
+  backdrop-filter: blur(var(--clay-blur));
+  -webkit-backdrop-filter: blur(var(--clay-blur));
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.clay-surface:hover {
+  box-shadow:
+    8px 8px 24px rgba(0, 0, 0, 0.6),
+    -4px -4px 14px rgba(110, 114, 184, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Clay Card */
+.clay-card {
+  background: linear-gradient(145deg, rgba(45, 47, 74, 0.95) 0%, rgba(30, 32, 55, 0.9) 100%);
+  border-radius: var(--clay-border-radius-lg);
+  border: 1px solid rgba(124, 77, 255, 0.25);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 2px 8px rgba(124, 77, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.clay-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(124, 77, 255, 0.6), transparent);
+}
+
+/* Clay Button */
+.clay-button {
+  background: linear-gradient(135deg, var(--clay-highlight) 0%, var(--clay-glow-primary) 100%);
+  border: none;
+  border-radius: 14px;
+  padding: 0.6rem 1.4rem;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow:
+    0 4px 15px rgba(124, 77, 255, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.clay-button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 8px 25px rgba(124, 77, 255, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.clay-button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Clay Glow — neon pulsing glow */
+.clay-glow {
+  position: relative;
+}
+
+.clay-glow::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--clay-glow-primary), var(--clay-glow-secondary));
+  opacity: 0;
+  z-index: -1;
+  filter: blur(8px);
+  transition: opacity 0.3s ease;
+}
+
+.clay-glow:hover::after,
+.clay-glow.active::after {
+  opacity: 0.5;
+  animation: clay-pulse 2s ease-in-out infinite;
+}
+
+@keyframes clay-pulse {
+  0%, 100% { opacity: 0.4; filter: blur(8px); }
+  50% { opacity: 0.7; filter: blur(12px); }
+}
+
+/* Clay neon text */
+.clay-neon-text {
+  color: var(--clay-glow-secondary);
+  text-shadow:
+    0 0 8px var(--clay-glow-secondary),
+    0 0 20px rgba(0, 229, 255, 0.4);
+}
+
+.clay-neon-text-purple {
+  color: var(--clay-glow-primary);
+  text-shadow:
+    0 0 8px var(--clay-glow-primary),
+    0 0 20px rgba(124, 77, 255, 0.4);
+}
+
+/* Clay badge */
+.clay-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(124, 77, 255, 0.15);
+  border: 1px solid rgba(124, 77, 255, 0.35);
+  border-radius: 999px;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--clay-glow-primary);
+  box-shadow: 0 0 8px rgba(124, 77, 255, 0.2);
+}
+
+/* Floating animation */
+@keyframes clay-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.clay-float {
+  animation: clay-float 3s ease-in-out infinite;
+}
+
+/* Breathing animation */
+@keyframes clay-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.clay-breathe {
+  animation: clay-breathe 4s ease-in-out infinite;
+}
+
+/* Scrollbar */
+.clay-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.clay-scroll::-webkit-scrollbar-track {
+  background: var(--clay-shadow);
+  border-radius: 3px;
+}
+.clay-scroll::-webkit-scrollbar-thumb {
+  background: var(--clay-highlight);
+  border-radius: 3px;
+}
