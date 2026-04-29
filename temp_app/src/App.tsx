@@ -1,6 +1,8 @@
 import { Badge, Button, Card, CardHeader, ProgressBar, Text, Title1, Title2, Title3 } from '@fluentui/react-components'
 import './App.css'
 
+const SWAMP_EXPANSION_READINESS = 0.86
+
 const modelProviders = [
   'OpenAI',
   'Gemini',
@@ -86,7 +88,7 @@ function App() {
           </div>
           <div className="workflow-row">
             <Text>Swamp expansion readiness</Text>
-            <ProgressBar value={0.86} thickness="large" />
+            <ProgressBar value={SWAMP_EXPANSION_READINESS} thickness="large" />
           </div>
           <div className="actions-row">
             <Button appearance="primary">Open Neural Link</Button>

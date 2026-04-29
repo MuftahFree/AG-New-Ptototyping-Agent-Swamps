@@ -1,5 +1,6 @@
 .app-shell {
   /* Controls the subtle radial glow strength and reach for the premium dark-mode backdrop. */
+  /* Secondary glow is slightly brighter but tighter to balance the lower-right visual weight. */
   --swamp-glow-primary-opacity: 0.16;
   --swamp-glow-secondary-opacity: 0.18;
   --swamp-glow-primary-stop: 36%;
